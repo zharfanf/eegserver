@@ -1,0 +1,19 @@
+Cara instalasi pada server baru:
+1. Import mobileeeg1_authdb.sql menggunakan phpmyadmin
+2. Copy isi folder mobileeeg_server ke root folder webserver
+3. Edit file myFunctions_mobileeeg.php
+	a. Ubah baris ke 3 dan 4 (mysql username dan password)
+	b. Ubah baris ke 6 (sesuaikan dengan base url website yang digunakan)
+4. Copy isi dari folder mobileeeg_client ke home folder di raspberry pi
+	(jadi akan ada folder /home/pi/mobileeeg setelah dicopy)
+5. Sesuaikan nilai baseurl pada variabel "url" pada baris 13 file /home/pi/mobileeeg/test.py 
+	dengan baseurl yang diedit pada langkah 3.b.
+6. Buka website yang sudah disetup, create new account, lalu login.
+6. Add device, sampai didapat string token/apikey. 
+	Copy string token/apikey itu dan paste pada baris 14 file /home/pi/mobileeeg/test1.py
+	
+5. Data dapat dikirim ke webserver dengan menjalankan file /home/pi/mobileeeg/run.sh 
+
+library python3 yang mungkin perlu diinstall pada raspberry: 
+	venv, argparse, time, numpy, requests, brainflow
+	
