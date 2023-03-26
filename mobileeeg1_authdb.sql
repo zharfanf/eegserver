@@ -16,12 +16,12 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `mobileeeg1_authdb`
 --
-CREATE DATABASE IF NOT EXISTS `mobileeeg1_authdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `mobileeeg1_authdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mobileeeg1_authdb`;
 
 -- --------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `devices_profile` (
   `devicetoken` varchar(255) NOT NULL,
   `patientid` int DEFAULT NULL,
   `metadata` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,7 @@ CREATE TABLE `device_models` (
   `description` text NOT NULL,
   `metadata` text NOT NULL,
   `is_available` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -64,9 +64,9 @@ CREATE TABLE `device_models` (
 
 CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
-  `email` varchar(249) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(249) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` tinyint UNSIGNED NOT NULL DEFAULT '0',
   `verified` tinyint UNSIGNED NOT NULL DEFAULT '0',
   `resettable` tinyint UNSIGNED NOT NULL DEFAULT '1',
@@ -74,7 +74,7 @@ CREATE TABLE `users` (
   `registered` int UNSIGNED NOT NULL,
   `last_login` int UNSIGNED DEFAULT NULL,
   `force_logout` mediumint UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -85,11 +85,11 @@ CREATE TABLE `users` (
 CREATE TABLE `users_confirmations` (
   `id` int UNSIGNED NOT NULL,
   `user_id` int UNSIGNED NOT NULL,
-  `email` varchar(249) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(249) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `selector` varchar(16) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -101,8 +101,8 @@ CREATE TABLE `users_profile` (
   `userid` int NOT NULL,
   `nama` varchar(255) NOT NULL,
   `status` int DEFAULT NULL,
-  `metadata` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `metadata` text CHARACTER SET utf8 COLLATE utf8_general_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,7 @@ CREATE TABLE `users_remembered` (
   `selector` varchar(24) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE `users_resets` (
   `selector` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -143,7 +143,7 @@ CREATE TABLE `users_throttling` (
   `tokens` float UNSIGNED NOT NULL,
   `replenished_at` int UNSIGNED NOT NULL,
   `expires_at` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,7 @@ CREATE TABLE `waveformdata` (
   `datapoints` int NOT NULL,
   `channelnames` json NOT NULL,
   `data` mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Indexes for dumped tables
