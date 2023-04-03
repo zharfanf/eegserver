@@ -1,0 +1,13 @@
+name: eeg
+channels:
+  - anaconda
+  - defaults
+dependencies:
+  - python==3.8.15
+  - venv
+  - argparse
+  - time
+  - numpy
+  - requests
+  - pip:
+    - opencv-contrib-python
