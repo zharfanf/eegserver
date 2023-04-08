@@ -23,7 +23,7 @@ def sendDataToServer(eegdata,acceldata,timestampdata,fsampling):
 
 def getDataSegment(segmentleninseconds=5):
 	board_id=0 #cyton=0
-	serial_port='/dev/ttyUSB0'  #in raspberry pi 3+ =/dev/ttyUSB0
+	serial_port='/dev/cu.usbserial-DM03H5DJ'  #in raspberry pi 3+ =/dev/ttyUSB0
 
 
 	#BoardShim.enable_dev_board_logger()
