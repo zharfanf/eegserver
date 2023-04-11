@@ -5,7 +5,7 @@ import random
 import requests
 
 def sendDataToServer(eegdata,acceldata,timestampdata,fsampling):
-	url='http://localhost/api.php'
+	url='http://192.168.12.175/api.php'
 	apikey='68d79521339f81b3c90c2a8d631bda5f'
 	#print(timestampdata[0])
 	starttimestamp=timestampdata[0]
