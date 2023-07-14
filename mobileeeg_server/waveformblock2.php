@@ -188,7 +188,7 @@ $totaldatasegments=getTotalDataSegments($userProfile[0]['userid'],$_GET['devicei
 
     function updateMyChart(){
     pos=document.querySelector("#slider").value-1;
-    var url0 = 'https://mobileeeg.yzd.my.id/getchartdata2.php?deviceid=<? echo $_GET['deviceid'];?>&pos=';
+    var url0 = 'https://192.168.1.2/getchartdata2.php?deviceid=<? echo $_GET['deviceid'];?>&pos=';
     var url=url0.concat(pos);
     console.log(url);
     $.ajax({

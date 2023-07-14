@@ -6,7 +6,7 @@ $userProfile=getUserProfileByID($userid);
 $chartdata=getMainChartData($userProfile[0]['userid'],$_GET['deviceid'],$_GET['pos']); 
 $channelnames=getMainChartChannelNames($userProfile[0]['userid'],$_GET['deviceid'],$_GET['pos']); 
 $timestamprow=sizeof($chartdata)-1;
-$step=3;
+$step=1;
 ?>
 [
 <?

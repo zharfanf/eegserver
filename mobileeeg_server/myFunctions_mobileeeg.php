@@ -1,9 +1,10 @@
 <?php
 #sesuaikan baris 3 dan 4 dengan server yang dipakai
-$var_mysqlusername="username";
-$var_mysqluserpass="password";
+$var_mysqlusername="root";
+$var_mysqluserpass="passwordphpmyadmin";
 #sesuaikan baris 6 dengan url website yang digunakan
-$myvars['baseurl']='https://mobileeeg.yzd.my.id/';
+$myvars['baseurl']='http://192.168.1.2/';
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING); 
 
 include_once("./myFunctions.php");
 function getTotalDataSegments($deviceownerid,$deviceid){
@@ -19,7 +20,7 @@ function getMainChartData($deviceownerid,$deviceid,$pos){
 }
 function getMainChartChannelNames($deviceownerid,$deviceid,$pos){
 	$data=getDataByOwnerIdDeviceId($deviceownerid,$deviceid,$pos);
-	#print_r($data);
+	// print_r($data);
 	$channelnames=json_decode($data[0]['channelnames']);
 	return $channelnames;
 }
@@ -63,6 +64,7 @@ function addWaveformData($deviceid,$deviceownerid,$patientid,$devicemodelid,$sta
 	}
 }
 function connectToDB_this(){
+	global $var_mysqlusername, $var_mysqluserpass;
     $host="localhost";
 	$user=$var_mysqlusername;
 	$password=$var_mysqluserpass;

@@ -1,5 +1,6 @@
 <?php
 include_once('./myheader.php');
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING); 
 
 if (!$auth->isLoggedIn()) {
     if($_GET['action']=='register'){

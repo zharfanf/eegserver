@@ -49,7 +49,7 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
             <div class="logo">
-                <a href="#">
+                <a href="/">
                     <img src="images/icon/logo-white.png" alt="mobileEEG" />
                 </a>
             </div>
