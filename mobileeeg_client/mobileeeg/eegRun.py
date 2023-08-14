@@ -32,7 +32,7 @@ def sendDataToServer(data_arrays_2d):
 	# response = requests.post(url, json=jsondata,timeout=5)
 	# print(response.text)
 
-randomArray(array_random)
+array_random=randomArray(array_random)
 for i in array_random :
 	if (i<10) :
 		file_path = f'Z/Z00{i}.txt'
