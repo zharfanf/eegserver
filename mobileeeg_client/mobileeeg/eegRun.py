@@ -3,7 +3,9 @@ import time
 import numpy as np
 import random
 import requests
+
 data_arrays = []
+array_random = []
 waveformdata=[]
 data_array_2d=[]
 
@@ -13,6 +15,12 @@ def readFile (file_path):
     data_array = np.array([float(line.strip()) for line in lines])
     return data_array
 
+def randomArray (array_random) :
+	for i in range (1,9) :
+		x = random.randint(1,100)
+		array_random.append(x)
+	return array_random
+	
 
 def sendDataToServer(data_arrays_2d):
 	# url='http://192.168.97.175/api.php'
@@ -23,11 +31,18 @@ def sendDataToServer(data_arrays_2d):
 	# jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':fsampling}
 	# response = requests.post(url, json=jsondata,timeout=5)
 	# print(response.text)
-	
-for i in range(1, 9):
-	file_path = f'Z/Z00{i}.txt'
+
+randomArray(array_random)
+for i in array_random :
+	if (i<10) :
+		file_path = f'Z/Z00{i}.txt'
+	elif (i<100) :
+		file_path = f'Z/Z0{i}.txt'
+	else :
+		file_path = f'Z/Z{i}.txt'
 	dataArray = readFile(file_path)
 	data_arrays.append(dataArray)
+
 
 data_array_2d = np.array(data_arrays)
 # print(data_array_2d)
