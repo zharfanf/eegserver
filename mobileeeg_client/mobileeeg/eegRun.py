@@ -4,12 +4,13 @@ import numpy as np
 import random
 import requests
 
+data_array = []
 data_arrays = []
 array_random = []
 waveformdata=[]
 data_array_2d=[]
 
-def readFile (file_path):
+def readFile (data_array,file_path):
     f = open(file_path, 'r')
     lines = f.readlines()
     data_array = np.array([float(line.strip()) for line in lines])
@@ -40,8 +41,8 @@ for i in array_random :
 		file_path = f'Z/Z0{i}.txt'
 	else :
 		file_path = f'Z/Z{i}.txt'
-	dataArray = readFile(file_path)
-	data_arrays.append(dataArray)
+	data_array = readFile(data_array,file_path)
+	data_arrays.append(data_array)
 
 
 data_array_2d = np.array(data_arrays)
