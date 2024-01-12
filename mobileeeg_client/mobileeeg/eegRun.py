@@ -3,6 +3,7 @@ import time
 import numpy as np
 import random
 import requests
+import csv
 
 def readFile (data_array,file_path):
     f = open(file_path, 'r')
@@ -22,17 +23,28 @@ def randomArraytime (starttimestamp) :
 		timestampdata.append(starttimestamp + (i * (25/4097)))
 	return timestampdata
 
+def saveToCSV(waveformdata):
+    with open('dataCyton.csv', 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Timestamp', 'Channel 1', 'Channel 2', 'Channel 3', 'Channel 4', 'Channel 5', 'Channel 6', 'Channel 7', 'Channel 8'])
+        for line in waveformdata.tolist():
+            csvwriter.writerow(line)
+
+
 def sendDataToServer(data_array_2d,timestampdata):
-	url='http://192.168.175.212/api.php'
-	apikey='ff5f9ee86c6e510749a024415eb05a14'
+	# url='http://192.168.175.212/api.php'
+	# apikey='ff5f9ee86c6e510749a024415eb05a14'
 	datapoints=4096
 	starttimestamp=timestampdata[0]
 	endtimestamp=timestampdata[-1]
 	waveformdata = np.transpose(np.vstack((timestampdata, data_array_2d)))
-	print(waveformdata.tolist())
-	jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':174}
-	response = requests.post(url, json=jsondata,timeout=5)
-	print(response.text)
+	print(data_array_2d)
+	saveToCSV(waveformdata)
+	# jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':174}
+	# response = requests.post(url, json=jsondata,timeout=5)
+	# print(response.text)
+
+
 
 while True :
 	data_array = []
@@ -54,5 +66,7 @@ while True :
 		data_arrays.append(data_array)
 	data_array_2d = np.array(data_arrays)
 	# print(data_array_2d)
+	# print(timestampdata)
 	sendDataToServer(data_array_2d, timestampdata)
+	# saveToCSV(data_array_2d, timestampdata, 'tes.csv')
 	time.sleep(60)
