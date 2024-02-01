@@ -1,29 +1,37 @@
 import argparse
 import time
 import numpy as np
+import csv
 
 import brainflow
 from brainflow.board_shim import BoardShim, BrainFlowInputParams
 from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
 import requests
 
-
+def saveToCSV(waveformdata):
+    with open('dataCyton.csv', 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Timestamp', 'Channel 1', 'Channel 2', 'Channel 3', 'Channel 4', 'Channel 5', 'Channel 6', 'Channel 7', 'Channel 8','x','y','z'])
+        for line in waveformdata.tolist():
+            csvwriter.writerow(line)
 
 def sendDataToServer(eegdata,acceldata,timestampdata,fsampling):
-	url='https://mobileeeg.yzd.my.id/api.php'
-	apikey='806ec09856a98464d5a00aed56ac04ec'
+	# url='https://mobileeeg.yzd.my.id/api.php'
+	# apikey='806ec09856a98464d5a00aed56ac04ec'
 	#print(timestampdata[0])
 	starttimestamp=timestampdata[0]
 	endtimestamp=timestampdata[-1]
 	datapoints=len(timestampdata)
 	waveformdata=np.transpose(np.vstack((timestampdata,eegdata,acceldata)))
-	jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':fsampling}
-	response = requests.post(url, json=jsondata,timeout=0.001)
-	print(response.text)
+	saveToCSV(waveformdata)
+	# jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':fsampling}
+	# response = requests.post(url, json=jsondata,timeout=0.001)
+	# print(response.text)
+
 
 def getDataSegment(segmentleninseconds=5):
 	board_id=0 #cyton=0
-	serial_port='/dev/cu.usbserial-DM03H5DJ'  #in raspberry pi 3+ =/dev/ttyUSB0
+	serial_port='/dev/ttyUSB0'  #in raspberry pi 3+ =/dev/ttyUSB0
 
 
 	#BoardShim.enable_dev_board_logger()
@@ -55,9 +63,9 @@ def getDataSegment(segmentleninseconds=5):
 			acceldata=data[accelch]
 
 			sendDataToServer(eegdata,acceldata,timestampdata,fsampling)
-			#print(eegdata)
-			#print(timestampdata)
-			#print(acceldata)
+			# print(eegdata)
+			# print(timestampdata)
+			# print(acceldata)
 			time.sleep(0.5)
 			
 	board.stop_stream()
