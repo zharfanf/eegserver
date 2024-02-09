@@ -16,20 +16,25 @@ def saveToCSV(waveformdata):
             csvwriter.writerow(line)
 
 def sendDataToServer(eegdata,acceldata,timestampdata,fsampling):
-	# url='https://mobileeeg.yzd.my.id/api.php'
-	# apikey='806ec09856a98464d5a00aed56ac04ec'
-	#print(timestampdata[0])
+	url='http://192.168.111.212/api.php'
+	apikey='ff5f9ee86c6e510749a024415eb05a14'
+	print(timestampdata[0])
+	datapoints=250
+	# timestampdata = timestampdata[0:datapoints]
+	# eegdata=[data[0:datapoints] for data in eegdata]
+	# acceldata=[data[0:datapoints] for data in acceldata]
 	starttimestamp=timestampdata[0]
 	endtimestamp=timestampdata[-1]
-	datapoints=len(timestampdata)
 	waveformdata=np.transpose(np.vstack((timestampdata,eegdata,acceldata)))
+	# print(waveformdata)
 	saveToCSV(waveformdata)
-	# jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':fsampling}
-	# response = requests.post(url, json=jsondata,timeout=0.001)
-	# print(response.text)
+	jsondata = {'apikey':apikey, 'waveformdata': waveformdata.tolist(),'starttimestamp': starttimestamp, 'endtimestamp':endtimestamp,'datapoints':datapoints,'samplingfreq':fsampling}
+	response = requests.post(url, headers={"Date":str(time.time())}, json=jsondata,timeout=5)
+	print(response.text)
+	return response
 
 
-def getDataSegment(segmentleninseconds=5):
+def getDataSegment(segmentleninseconds=1):
 	board_id=0 #cyton=0
 	serial_port='/dev/ttyUSB0'  #in raspberry pi 3+ =/dev/ttyUSB0
 
@@ -62,11 +67,17 @@ def getDataSegment(segmentleninseconds=5):
 			timestampdata=data[timestampch]
 			acceldata=data[accelch]
 
-			sendDataToServer(eegdata,acceldata,timestampdata,fsampling)
-			# print(eegdata)
+
+			output = None
+			output = sendDataToServer(eegdata,acceldata,timestampdata,fsampling)
+			# timestampdata = timestampdata[0:100]
+			# eegdata=eegdata[0:100][:]
+			# acceldata=acceldata[:][0:100]
+			# print(len(eegdata[0]))
 			# print(timestampdata)
 			# print(acceldata)
-			time.sleep(0.5)
+			time.sleep(5)
+
 			
 	board.stop_stream()
 	board.release_session()
